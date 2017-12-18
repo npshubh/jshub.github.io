@@ -1,0 +1,81 @@
+@color-body-background:powderblue;
+@color-navbar: black;
+@color-white: white;
+
+@smartphones: ~"only screen and (max-width: 479px)";
+@tablets: ~"only screen and (min-width: 768px) and (max-width: 959px)";
+
+@font-size--large: 24px;
+@font-size--medium: 12px;
+
+.font-size-mixin {
+	font-size: @font-size--large;
+
+	@media @smartphones, @tablets {
+		font-size: @font-size--medium;
+	}
+}
+
+.default-pm {
+  margin: 0px;
+  padding: 0px;
+}
+
+html, body, ul, li, a, div, p, h1, h2, h3, h4, h5, h6, header, nav, section {
+  .default-pm;
+}
+body {
+  background: @color-body-background;
+}
+
+header {
+  width:100%;
+}
+
+nav {
+  width: 100%;
+}
+
+.navbar {
+  background-color: @color-navbar;
+  width: 100%;
+}
+
+.nav-items {
+  display: inline-block;
+  padding: 15px;
+  &:hover {
+    background: @color-white;
+  }
+  a {
+    color: @color-white;
+    &:hover {
+      color: @color-navbar;
+    }
+  }
+}
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.generate-columns(12);
+
+.generate-columns(@n, @i: 1) when (@i =< @n) {
+  .col-@{i} {
+    width: (@i * 100% / @n);
+    float: left;
+    // padding: 15px;
+    min-height: 1px;
+    text-align: center;
+    background: @color-white;
+    @media @smartphones {
+  		width: 100%;
+  	}
+  }
+  .generate-columns(@n, (@i + 1));
+}
+
+.container {
+
+}
